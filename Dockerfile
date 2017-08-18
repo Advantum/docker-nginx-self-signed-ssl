@@ -19,6 +19,10 @@ RUN apk add --no-cache \
             mkdir -p /nginx/tmp/ && \
             chown -R nginx:nginx /nginx/
 
+COPY server.crt /opt/ssl/server.crt 
+
+COPY server.key /opt/ssl/server.key 
+
 #
 # RUN NGINX
 #
@@ -26,5 +30,4 @@ USER nginx
 EXPOSE 4443
 VOLUME ["/opt/www"]
 WORKDIR /opt/www/
-ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 CMD ["nginx", "-c", "/nginx/nginx.conf", "-g", "daemon off;"]
